@@ -1,0 +1,23 @@
+package warrantyservicepublisher;
+
+import org.osgi.framework.BundleActivator;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.ServiceRegistration;
+
+public class WarrantyServiceActivator implements BundleActivator {
+    private ServiceRegistration<?> serviceRegistration;
+
+    @Override
+    public void start(BundleContext context) throws Exception {
+        System.out.println("Warranty Service Publisher Started ....");
+        WarrantyService warrantyService = new WarrantyServiceImpl();
+        serviceRegistration = context.registerService(WarrantyService.class.getName(), warrantyService, null);
+    }
+
+    @Override
+    public void stop(BundleContext context) throws Exception {
+        System.out.println("Warranty Service Stopped...");
+        serviceRegistration.unregister();
+    }
+}
+

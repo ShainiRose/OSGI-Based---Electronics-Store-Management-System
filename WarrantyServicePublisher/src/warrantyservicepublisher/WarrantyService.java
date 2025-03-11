@@ -1,0 +1,8 @@
+package warrantyservicepublisher;
+
+
+public interface WarrantyService {
+    void registerWarranty(String customerName, String productName, String serialNumber, int warrantyYears);
+    void checkWarrantyStatus(String serialNumber);
+}
+

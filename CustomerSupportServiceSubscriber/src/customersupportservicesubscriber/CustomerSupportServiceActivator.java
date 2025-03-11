@@ -1,0 +1,65 @@
+package customersupportservicesubscriber;
+
+import java.util.Scanner;
+import org.osgi.framework.BundleActivator;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.ServiceReference;
+import customersupportservicepublisher.CustomerSupportService;
+
+public class CustomerSupportServiceActivator implements BundleActivator {
+    private ServiceReference<?> serviceReference;
+
+    @Override
+    public void start(BundleContext context) throws Exception {
+        System.out.println("Customer Support Service Subscriber Started...");
+
+        Scanner scanner = new Scanner(System.in);
+
+        // Login System
+        System.out.println("\n================== Welcome to Electronics Store ==================");
+        System.out.println(" Please Sign In to Access Customer Support.");
+        System.out.println("=================================================================");
+
+        System.out.print("\nEnter Username: ");
+        String username = scanner.nextLine();
+
+        System.out.print("Enter Password: ");
+        String password = scanner.nextLine();
+
+        if (!username.equals("admin") || !password.equals("admin123")) {
+            System.out.println("\nInvalid credentials! Exiting system.");
+            scanner.close();
+            return;
+        }
+
+        System.out.println("\nLogin Successful!");
+        System.out.println("================== Welcome, " + username + " ==================\n");
+
+        serviceReference = context.getServiceReference(CustomerSupportService.class.getName());
+        CustomerSupportService customerSupportService = (CustomerSupportService) context.getService(serviceReference);
+
+        while (true) {
+            System.out.print("Enter Customer Name: ");
+            String customerName = scanner.nextLine();
+
+            System.out.print("Describe the Issue: ");
+            String issue = scanner.nextLine();
+
+            customerSupportService.raiseComplaint(customerName, issue);
+
+            System.out.print("Do you want to register another complaint? (yes/no): ");
+            String response = scanner.nextLine();
+            if (!response.equalsIgnoreCase("yes")) {
+                break;
+            }
+        }
+        scanner.close();
+    }
+
+    @Override
+    public void stop(BundleContext context) throws Exception {
+        System.out.println("Customer Support Service Client Stopped...");
+        context.ungetService(serviceReference);
+    }
+}
+

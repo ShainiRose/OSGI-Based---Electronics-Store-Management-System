@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: BillingServicePublisher
+Bundle-SymbolicName: BillingServicePublisher
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: billingservicepublisher.BillingServiceActivator
+Bundle-RequiredExecutionEnvironment: JavaSE-17
+Export-Package: billingservicepublisher
+Import-Package: org.osgi.framework;version="1.3.0"
+
+
+
+
+

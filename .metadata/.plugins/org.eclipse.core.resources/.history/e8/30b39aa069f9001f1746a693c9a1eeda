@@ -1,0 +1,19 @@
+package billingservicepublisher;
+
+
+public class BillingServiceImpl implements BillingService {
+
+    @Override
+    public void generateBill(String customerName, String productName, int quantity, double price) {
+        double total = quantity * price;
+
+        System.out.println("\n==================================================");
+        System.out.println(" Bill Generated for " + customerName);
+        System.out.println(" Product: " + productName);
+        System.out.println(" Quantity: " + quantity);
+        System.out.println(" Price per unit: $" + price);
+        System.out.println(" Total Amount: $" + total);
+        System.out.println("==================================================\n");
+    }
+}
+

@@ -1,0 +1,94 @@
+package warrantyservicesubscriber;
+
+
+import warrantyservicepublisher.WarrantyService;
+import java.util.Scanner;
+import org.osgi.framework.BundleActivator;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.ServiceReference;
+
+
+public class WarrantyServiceActivator implements BundleActivator {
+    private ServiceReference<?> serviceReference;
+
+    @Override
+    public void start(BundleContext context) throws Exception {
+        System.out.println("================== Welcome to Electronics Store ==================");
+        System.out.println("Please Sign In to Access Warranty Management.");
+
+        Scanner scanner = new Scanner(System.in);
+
+        // Hardcoded login credentials
+        String correctUsername = "admin";
+        String correctPassword = "admin123";
+
+        System.out.print("\nEnter Username: ");
+        String username = scanner.nextLine();
+
+        System.out.print("Enter Password: ");
+        String password = scanner.nextLine();
+
+        if (!username.equals(correctUsername) || !password.equals(correctPassword)) {
+            System.out.println("Invalid credentials! Exiting system.");
+            scanner.close();
+            return;
+        }
+
+        System.out.println("\nLogin Successful!");
+        System.out.println("================== Welcome, " + username + " ==================");
+
+        serviceReference = context.getServiceReference(WarrantyService.class.getName());
+        WarrantyService warrantyService = (WarrantyService) context.getService(serviceReference);
+
+        while (true) {
+            System.out.println("\nSelect a service:");
+            System.out.println("1 - Register Product Warranty");
+            System.out.println("2 - Check Warranty Status");
+            System.out.println("3 - Exit");
+            System.out.print("Enter choice: ");
+
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // Consume newline
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter Customer Name: ");
+                    String customerName = scanner.nextLine();
+
+                    System.out.print("Enter Product Name: ");
+                    String productName = scanner.nextLine();
+
+                    System.out.print("Enter Serial Number: ");
+                    String serialNumber = scanner.nextLine();
+
+                    System.out.print("Enter Warranty Years: ");
+                    int warrantyYears = scanner.nextInt();
+                    scanner.nextLine(); // Consume newline
+
+                    warrantyService.registerWarranty(customerName, productName, serialNumber, warrantyYears);
+                    break;
+
+                case 2:
+                    System.out.print("Enter Serial Number to Check Warranty: ");
+                    String serial = scanner.nextLine();
+                    warrantyService.checkWarrantyStatus(serial);
+                    break;
+
+                case 3:
+                    System.out.println("Exiting...");
+                    scanner.close();
+                    return;
+
+                default:
+                    System.out.println("Invalid option, try again.");
+            }
+        }
+    }
+
+    @Override
+    public void stop(BundleContext context) throws Exception {
+        System.out.println("Warranty Service Client Stopped...");
+        context.ungetService(serviceReference);
+    }
+}
+

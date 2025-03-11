@@ -1,0 +1,20 @@
+package customersupportservicepublisher;
+
+
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class CustomerSupportServiceActivator implements CustomerSupportService {
+    private List<String> complaints = new ArrayList<>();
+
+    @Override
+    public void raiseComplaint(String customerName, String issue) {
+        complaints.add("Customer: " + customerName + " | Issue: " + issue);
+        System.out.println("\n==================================================");
+        System.out.println(" Complaint Registered Successfully!");
+        System.out.println(" Customer: " + customerName);
+        System.out.println(" Issue: " + issue);
+        System.out.println("==================================================\n");
+    }
+}

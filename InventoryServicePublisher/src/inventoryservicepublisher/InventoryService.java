@@ -1,0 +1,5 @@
+package inventoryservicepublisher;
+
+public interface InventoryService {
+    void addProduct(String productName, int quantity, double price);
+}

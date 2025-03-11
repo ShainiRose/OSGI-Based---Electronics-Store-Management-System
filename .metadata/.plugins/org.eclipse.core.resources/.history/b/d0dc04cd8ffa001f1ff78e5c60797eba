@@ -1,0 +1,34 @@
+package warrantyservicepublisher;
+
+
+
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class WarrantyServiceImpl implements WarrantyService {
+    private Map<String, String> warrantyDatabase = new HashMap<>();
+
+    @Override
+    public void registerWarranty(String customerName, String productName, String serialNumber, int warrantyYears) {
+        warrantyDatabase.put(serialNumber, "Product: " + productName + ", Customer: " + customerName + ", Warranty: " + warrantyYears + " years");
+        
+        System.out.println("\n==================================================");
+        System.out.println(" Warranty registered successfully for " + customerName);
+        System.out.println("==================================================\n");
+    }
+
+    @Override
+    public void checkWarrantyStatus(String serialNumber) {
+        if (warrantyDatabase.containsKey(serialNumber)) {
+            System.out.println("\n==================================================");
+            System.out.println(" Warranty Details: " + warrantyDatabase.get(serialNumber));
+            System.out.println("==================================================\n");
+        } else {
+            System.out.println("\n==================================================");
+            System.out.println(" No warranty record found for this serial number.");
+            System.out.println("==================================================\n");
+        }
+    }
+}
+
