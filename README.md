@@ -1,6 +1,6 @@
 # OSGI-Based Electronics-Store-Management-System
 
-  This system helps manage different aspects of an electronics retail shop efficiently.
+This system helps manage different aspects of an electronics retail shop efficiently.
 
 1. Product Warranty Management Service
 Publisher: WarrantyServicePublisher
