@@ -1,4 +1,4 @@
- OSGI Based Electronics Store Management System,
+ OSGI Based Electronics Store Management System
 
 This system helps manage different aspects of an electronics retail shop efficiently.
 
